@@ -1,0 +1,38 @@
+{% include "head.html" %}
+
+<style>
+#PostText {
+	min-width:200px;
+	max-width:350px;
+	margin:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+
+
+#PostBlock {
+	background:rgba(255,255,255,0.85);
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
+
+</style>
+
+<title>Vision OCR</title>
+<body id="body" data-title="index" class = "home">
+<h1 id="PostBlock" style="display:inline-block;"> Vision OCR </h1>
+<br>
+<p id="PostBlock">This is a tool for working with document images. More...</p>
+
+<form id="FileFieldForm" style="display:inline-block;" method="post" action="OCR" enctype="multipart/form-data">
+{% csrf_token %}
+<div id="PostBlock" style="text-align:center;">
+{{ form.file }}<br>
+<p>Text Langugage: {{ form.language }}</p>
+
+<input type="submit" name="submit" value="Submit"> 
+ </form>
+
+{% include "footer.html" %}
