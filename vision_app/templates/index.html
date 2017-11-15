@@ -22,20 +22,23 @@
 
 <title>Vision OCR</title>
 <body id="body" data-title="index" class = "home">
+<div id="PostBlock" style="text-align:center;">
+
 <h1 id="PostBlock" style="display:inline-block;"> Vision OCR </h1>
 <br>
-<p id="PostBlock">This is a tool for working with document images. More...</p>
+<p id="PostBlock">This is a simple tool for working with document images.</p>
 
 <form id="FileFieldForm" style="display:inline-block;" method="post" action="home/" enctype="multipart/form-data">
-{% csrf_token %}
 <div id="PostBlock" style="text-align:center;">
+
+{% csrf_token %}
 {{ form.file }}<br>
-{{ form.file.value }}
 <p>Text Langugage: {{ form.language }}</p>
-<p>Language: {{form.language.value}}</p>
-{{ text }}
 
 <input type="submit" name="submit" value="Submit"> 
- </form>
+ </form><br>
+ <br>
+<b>{{ file_name }}</b><br>
+{{ texts }}
 
-{% include "footer.html" %}
+
