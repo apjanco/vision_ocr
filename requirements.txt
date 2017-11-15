@@ -1,1 +1,4 @@
 django=1.11.7
+google-cloud
+--upgrade google-cloud
+--upgrade google-api-python-client
