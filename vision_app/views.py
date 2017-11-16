@@ -69,7 +69,7 @@ def home(request):
 					f.write(pdf_file)
 					f.close()
 
-					with Image(filename=f.name) as img:
+					with Image(filename=f.name, resolution=200) as img:
 						img.format = 'jpeg'
 						if not os.path.exists('/tmp/jpg/'):
 							os.makedirs('/tmp/jpg/')
