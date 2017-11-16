@@ -58,20 +58,20 @@ def home(request):
 				print("nice it's a jpeg")
 
 				photo_file = base64.b64encode(request.FILES['file'].read())
-				text = google_vision(photo_file, language)
+				texts = google_vision(photo_file, language)
 
 			if file_extension == 'pdf':
 				print("it's a little pdf!")
 				pdf_file = request.FILES['file'].read()
-				with tempfile.NamedTemporaryFile(suffix='.txt', dir='/Users/ajanco/tmp', delete=False) as f:
+				with tempfile.NamedTemporaryFile(suffix='.txt', dir='/tmp', delete=False) as f:
 					f.write(pdf_file)
 					f.close()
 
 					with Image(filename=f.name) as img:
 						img.format = 'jpeg'
-						if not os.path.exists('/Users/ajanco/tmp/jpg/'):
-							os.makedirs('/Users/ajanco/tmp/jpg/')
-						img.save(filename='/Users/ajanco/tmp/jpg/v_ocr.jpg')
+						if not os.path.exists('/tmp/jpg/'):
+							os.makedirs('/tmp/jpg/')
+						img.save(filename='/tmp/jpg/v_ocr.jpg')
 
 						texts = []
 						for jpg_file in os.listdir('/Users/ajanco/tmp/jpg/'):
@@ -81,7 +81,7 @@ def home(request):
 								text = google_vision(image, language)
 								texts.append(text)
 						
-						shutil.rmtree('/Users/ajanco/tmp/jpg/')
+						shutil.rmtree('/tmp/jpg/')
 			else:
 				form = FileFieldForm()
 

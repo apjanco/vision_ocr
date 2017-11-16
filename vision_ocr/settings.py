@@ -25,7 +25,7 @@ SECRET_KEY = '6x5b+1gei2uaffs#q&h-(+5=ex5$j3-yqj2npq6xts+pnfekjd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ds-web.haverford.edu']
 
 
 # Application definition

@@ -18,7 +18,7 @@ from django.contrib import admin
 from vision_app import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name='home'),
-    url(r'^home/', views.home, name='home')
+    url(r'^ocr/admin/', admin.site.urls),
+    url(r'^ocr/', views.home, name='home'),
+    url(r'^ocr/home/', views.home, name='home')
 ]
