@@ -58,7 +58,9 @@ def home(request):
 				print("nice it's a jpeg")
 
 				photo_file = base64.b64encode(request.FILES['file'].read())
-				texts = google_vision(photo_file, language)
+				texts = []
+				text = google_vision(photo_file, language)
+				texts.append(text)
 
 			if file_extension == 'pdf':
 				print("it's a little pdf!")
@@ -74,8 +76,8 @@ def home(request):
 						img.save(filename='/tmp/jpg/v_ocr.jpg')
 
 						texts = []
-						for jpg_file in os.listdir('/Users/ajanco/tmp/jpg/'):
-							with open('/Users/ajanco/tmp/jpg/' + jpg_file, 'rb') as image:
+						for jpg_file in os.listdir('/tmp/jpg/'):
+							with open('/tmp/jpg/' + jpg_file, 'rb') as image:
 								image = base64.b64encode(image.read())
 								
 								text = google_vision(image, language)

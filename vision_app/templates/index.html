@@ -29,7 +29,7 @@
 <p id="PostBlock">This is a simple tool for working with document images.</p>
 
 <form id="FileFieldForm" style="display:inline-block;" method="post" action="home/" enctype="multipart/form-data">
-<div id="PostBlock" style="text-align:center;">
+<div id="PostBlock" style="text-align:left;">
 
 {% csrf_token %}
 {{ form.file }}<br>
@@ -39,6 +39,11 @@
  </form><br>
  <br>
 <b>{{ file_name }}</b><br>
-{{ texts }}
+<hr>   
+{% for text in texts %}
+<p>
+  {{ text }}
+  <hr>
+</p>
 
-
+{% endfor %}
