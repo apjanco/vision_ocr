@@ -27,7 +27,7 @@ class vision(models.Model):
 	NONE = '-'
 	LANGUAGE_CHOICES = ((NONE, '-'),(RUSSIAN, 'Russian'), (AZERBAIJANI, 'Azerbaijani'), (BELARUSIAN, 'Belarusian'),(BULGARIAN, 'Bulgarian'),(CROATIAN,'Croatian'),(CZECH, 'Czech'),(ESTONIAN, 'Estonian'),(HUNGARIAN,'Hungarian'),(KAZAKH,'Kazakh'),(KYRGYZ,'Kyrgyz'),(LATVIAN, 'Latvian'),(LITHUANIAN,'Lithuanian'),(MACEDONIAN, 'Macedonian'),(POLISH, 'Polish'),(ROMANIAN, 'Romanian'),(SERBIAN, 'Serbian'),(SLOVAK, 'Slovak'),(SLOVENIAN, 'Slovenian'),(SPANISH, 'Spanish'),(UKRAINIAN, 'Ukrainian'),(UZBEK, 'Uzbek'))
 
-	language = models.CharField(max_length = 5, choices=LANGUAGE_CHOICES, default=NONE)
+	language = models.CharField(max_length = 20, choices=LANGUAGE_CHOICES, default=NONE)
 	
 	created_at = models.DateTimeField(auto_now_add=True)
 

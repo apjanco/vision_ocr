@@ -50,6 +50,7 @@ def home(request):
 		form = FileFieldForm(request.POST, request.FILES)
 		if form.is_valid():
 			language = str(form['language'].value)
+			print(language + "this is the language")
 			file_name = str(request.FILES['file'].name)
 
 			file_extension = str(file_name).lower().split('.')[1]
@@ -79,11 +80,12 @@ def home(request):
 						for jpg_file in os.listdir('/tmp/jpg/'):
 							with open('/tmp/jpg/' + jpg_file, 'rb') as image:
 								image = base64.b64encode(image.read())
-								
+								print(jpg_file)
 								text = google_vision(image, language)
 								texts.append(text)
 						
 						shutil.rmtree('/tmp/jpg/')
+						print("deleted temp directory")
 			else:
 				form = FileFieldForm()
 
