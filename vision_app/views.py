@@ -46,59 +46,64 @@ def google_vision(photo_file, language):
 # Create your views here.
 
 def home(request):
-	if request.method == 'POST':
-		form = FileFieldForm(request.POST, request.FILES)
-		if form.is_valid():
-			language = str(form['language'].value)
-			print(language + "this is the language")
-			file_name = str(request.FILES['file'].name)
+	try:
+		if request.method == 'POST':
 
-			file_extension = str(file_name).lower().split('.')[1]
-			print (file_extension)
-			if file_extension == 'jpg' or file_extension == 'jpeg':
-				print("nice it's a jpeg")
+			form = FileFieldForm(request.POST, request.FILES)
+			if form.is_valid():
+				language = str(form['language'].value)
+				print(language + "this is the language")
+				file_name = str(request.FILES['file'].name)
 
-				photo_file = base64.b64encode(request.FILES['file'].read())
-				texts = []
-				text = google_vision(photo_file, language)
-				texts.append(text)
+				file_extension = str(file_name).lower().split('.')[1]
+				print (file_extension)
+				if file_extension == 'jpg' or file_extension == 'jpeg':
+					print("nice it's a jpeg")
 
-			if file_extension == 'pdf':
-				print("it's a little pdf!")
-				pdf_file = request.FILES['file'].read()
-				with tempfile.NamedTemporaryFile(suffix='.txt', dir='/tmp', delete=False) as f:
-					f.write(pdf_file)
-					f.close()
+					photo_file = base64.b64encode(request.FILES['file'].read())
+					texts = []
+					text = google_vision(photo_file, language)
+					texts.append(text)
 
-					with Image(filename=f.name, resolution=200) as img:
-						img.format = 'jpeg'
-						if not os.path.exists('/tmp/jpg/'):
-							os.makedirs('/tmp/jpg/')
-						img.save(filename='/tmp/jpg/v_ocr.jpg')
+				if file_extension == 'pdf':
+					print("it's a little pdf!")
+					pdf_file = request.FILES['file'].read()
+					with tempfile.NamedTemporaryFile(suffix='.txt', dir='/tmp', delete=False) as f:
+						f.write(pdf_file)
+						f.close()
 
-						texts = []
-						for jpg_file in os.listdir('/tmp/jpg/'):
-							with open('/tmp/jpg/' + jpg_file, 'rb') as image:
-								image = base64.b64encode(image.read())
-								print(jpg_file)
-								text = google_vision(image, language)
-								texts.append(text)
-						
-						shutil.rmtree('/tmp/jpg/')
-						print("deleted temp directory")
+						with Image(filename=f.name, resolution=200) as img:
+							img.format = 'jpeg'
+							if not os.path.exists('/tmp/jpg/'):
+								os.makedirs('/tmp/jpg/')
+							img.save(filename='/tmp/jpg/v_ocr.jpg')
+
+							texts = []
+							for jpg_file in os.listdir('/tmp/jpg/'):
+								with open('/tmp/jpg/' + jpg_file, 'rb') as image:
+									image = base64.b64encode(image.read())
+									print(jpg_file)
+									text = google_vision(image, language)
+									texts.append(text)
+							
+							shutil.rmtree('/tmp/jpg/')
+							print("deleted temp directory")
+				else:
+					form = FileFieldForm()
+
+
+
+
+				return render(request, 'index.html',{'form':form,'texts':texts,'file_name':file_name})
+
 			else:
-				form = FileFieldForm()
-
-
-
-
-			return render(request, 'index.html',{'form':form,'texts':texts,'file_name':file_name})
-
+				print(form.errors)
 		else:
-			print(form.errors)
-	else:
-		form = FileFieldForm()
+			form = FileFieldForm()
 
-		return render(request, 'index.html',{'form':form})
+			return render(request, 'index.html',{'form':form})
+	except:
+		return render(request, 'index.html',{'form':form}) 
+
     
  
